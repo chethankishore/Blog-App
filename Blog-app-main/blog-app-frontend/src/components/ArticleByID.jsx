@@ -99,16 +99,26 @@ function ArticleByID() {
   };
 
   //post comment by user
-  const addComment = async (commentObj) => {
-    //add artcileId
-    commentObj.articleId = article._id;
-    console.log(commentObj);
-    let res = await axios.put("http://localhost:5000/user-api/articles", commentObj, { withCredentials: true });
-    if (res.status === 200) {
-      toast.success(res.data.message);
-      setArticle(res.data.payload);
-    }
-  };
+   const addComment = async (commentObj) => {
+
+  commentObj.articleId = article._id;
+
+  // IMPORTANT FIX
+  commentObj.user = user.userId;
+
+  console.log(commentObj);
+
+  let res = await axios.put(
+    "http://localhost:5000/user-api/articles",
+    commentObj,
+    { withCredentials: true }
+  );
+
+  if (res.status === 200) {
+    toast.success(res.data.message);
+    setArticle(res.data.payload);
+  }
+};
 
   if (loading) return <p className={loadingClass}>Loading article...</p>;
   if (error) return <p className={errorClass}>{error}</p>;
@@ -163,8 +173,11 @@ function ArticleByID() {
       )}
 
       {/* comments */}
-      {article.comments.map((comment) => (
-        <div className="bg-gray-300 p-6 rounded-2xl mt-4">
+      {article.comments.map((comment, index) => (
+  <div
+    key={index}
+    className="bg-gray-300 p-6 rounded-2xl mt-4"
+  >
           <p className="uppercase text-pink-400 font-bold mb-3">
           {comment.user?.email}
           </p>

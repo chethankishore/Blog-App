@@ -56,9 +56,9 @@ userRoute.put("/articles", verifyToken("USER"), async (req, res) => {
   const { user, articleId, comment } = req.body;
   //check user(req.user)
   console.log(req.user);
-  if (user !== req.user.userId) {
-    return res.status(403).json({ message: "Forbidden" });
-  }
+  if (String(user) !== String(req.user.userId)) {
+  return res.status(403).json({ message: "Forbidden" });
+}
   //find artcleby id and update
   let articleWithComment = await ArticleModel.findOneAndUpdate(
     { _id: articleId, isArticleActive: true },

@@ -1,5 +1,5 @@
 ### User Register
-POST http://localhost:5000/user-api/users
+POST https://blog-app-1-li4z.onrender.com/user-api/users
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### User Register
-POST http://localhost:5000/user-api/users
+POST https://blog-app-1-li4z.onrender.com/user-api/users
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### User Login
-POST http://localhost:5000/common-api/login
+POST https://blog-app-1-li4z.onrender.com/common-api/login
 Content-Type: application/json
 
 {
@@ -35,11 +35,11 @@ Content-Type: application/json
 
 
 ### Read articles of all authors by User
-GET http://localhost:5000/user-api/articles
+GET https://blog-app-1-li4z.onrender.com/user-api/articles
 
 
 ### Add comment to an article
-PUT http://localhost:5000/user-api/articles
+PUT https://blog-app-1-li4z.onrender.com/user-api/articles
 Content-Type: application/json
 
 {
@@ -51,7 +51,7 @@ Content-Type: application/json
 
 
 ### Author Register
-POST http://localhost:5000/author-api/users
+POST https://blog-app-1-li4z.onrender.com/author-api/users
 Content-Type: application/json
 
 {
@@ -64,7 +64,7 @@ Content-Type: application/json
 
 
 ### Author Register
-POST http://localhost:5000/author-api/users
+POST https://blog-app-1-li4z.onrender.com/author-api/users
 Content-Type: application/json
 
 {
@@ -76,7 +76,7 @@ Content-Type: application/json
 }
 
 ### Author Login
-POST http://localhost:5000/common-api/login
+POST https://blog-app-1-li4z.onrender.com/common-api/login
 Content-Type: application/json
 
 {
@@ -88,7 +88,7 @@ Content-Type: application/json
 
 
 ### Create article (AUTHOR)
-POST http://localhost:5000/author-api/articles
+POST https://blog-app-1-li4z.onrender.com/author-api/articles
 Content-Type: application/json
 
 {
@@ -101,12 +101,12 @@ Content-Type: application/json
 
 
 ###Read articles of an author
-GET http://localhost:5000/author-api/articles/69af9844332e4fcb68fc6491
+GET https://blog-app-1-li4z.onrender.com/author-api/articles/69af9844332e4fcb68fc6491
 
 
 
 ### Update article (AUTHOR)
-PUT http://localhost:5000/author-api/articles
+PUT https://blog-app-1-li4z.onrender.com/author-api/articles
 Content-Type: application/json
 
 {
@@ -120,19 +120,19 @@ Content-Type: application/json
 
 
 ### Delete article
-PATCH http://localhost:5000/author-api/articles/69af986f332e4fcb68fc6496/status
+PATCH https://blog-app-1-li4z.onrender.com/author-api/articles/69af986f332e4fcb68fc6496/status
 Content-Type: application/json
 
 { "isArticleActive": true }
 
 
 ### Logout
-GET http://localhost:5000/common-api/logout
+GET https://blog-app-1-li4z.onrender.com/common-api/logout
 
 
 
 ### Change password
-PUT http://localhost:5000/common-api/change-password
+PUT https://blog-app-1-li4z.onrender.com/common-api/change-password
 Content-Type: application/json
 
 {

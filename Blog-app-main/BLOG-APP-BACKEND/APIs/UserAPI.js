@@ -51,28 +51,25 @@ userRoute.get("/articles", verifyToken("USER"), async (req, res) => {
 });
 
 //Add comment to an article(protected route)
-userRoute.put("/articles", verifyToken("USER"), async (req, res) => {
-  //get comment obj from req
-  const { user, articleId, comment } = req.body;
-  //check user(req.user)
-  console.log(req.user);
-  if (String(user) !== String(req.user.userId)) {
-  return res.status(403).json({ message: "Forbidden" });
-}
-  //find artcleby id and update
-  let articleWithComment = await ArticleModel.findOneAndUpdate(
-    { _id: articleId, isArticleActive: true },
-    { $push: { comments: { user, comment } } },
-    { new: true, runValidators: true },
-  );
+userRoute.put("/articles", verifyToken("USER"), async (req, res, next) => {
+  try {
+    const { articleId, comment } = req.body;
+    const user = req.user.userId; // ✅ always from JWT, not body
 
-  //if article not found
-  if (!articleWithComment) {
-    return res.status(404).json({ message: "Article not found" });
+    let articleWithComment = await ArticleModel.findOneAndUpdate(
+      { _id: articleId, isArticleActive: true },
+      { $push: { comments: { user, comment } } },
+      { new: true, runValidators: true }
+    );
+
+    if (!articleWithComment) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+
+    res.status(200).json({ message: "comment added successfully", payload: articleWithComment });
+  } catch (err) {
+    next(err);
   }
-  //send res
-  res.status(200).json({ message: "comment added successfully", payload: articleWithComment });
 });
-
 //next() ---> next middleware
 //next(err) ---> error handling middleware

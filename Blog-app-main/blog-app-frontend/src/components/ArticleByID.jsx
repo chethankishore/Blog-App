@@ -99,24 +99,24 @@ function ArticleByID() {
   };
 
   //post comment by user
-   const addComment = async (commentObj) => {
+  const addComment = async (commentObj) => {
+  try {
+    commentObj.articleId = article._id;
+    commentObj.user = user._id; // ✅ fix: _id not userId
 
-  commentObj.articleId = article._id;
+    const res = await axios.put(
+      "http://localhost:5000/user-api/articles",
+      commentObj,
+      { withCredentials: true }
+    );
 
-  // IMPORTANT FIX
-  commentObj.user = user.userId;
-
-  console.log(commentObj);
-
-  let res = await axios.put(
-    "http://localhost:5000/user-api/articles",
-    commentObj,
-    { withCredentials: true }
-  );
-
-  if (res.status === 200) {
-    toast.success(res.data.message);
-    setArticle(res.data.payload);
+    if (res.status === 200) {
+      toast.success(res.data.message);
+      setArticle(res.data.payload);
+    }
+  } catch (err) {
+    const msg = err.response?.data?.message || "Failed to add comment";
+    toast.error(msg);
   }
 };
 

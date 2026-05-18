@@ -1,16 +1,165 @@
-# React + Vite
+# MyBlog — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based frontend for the MyBlog platform. Supports three roles: **User**, **Author**, and **Admin** with protected routes and JWT-based authentication.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live URL
 
-## React Compiler
+```
+https://blog-app-bice-three-91.vercel.app
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Technology | Purpose |
+|---|---|
+| React 18 | UI framework |
+| Vite | Build tool |
+| React Router | Client-side routing |
+| Zustand | State management |
+| Axios | HTTP requests |
+| React Hook Form | Form handling |
+| React Hot Toast | Notifications |
+| Tailwind CSS | Styling |
+
+---
+
+## 📁 Project Structure
+
+```
+BLOG-APP-FRONTEND/
+├── src/
+│   ├── components/
+│   │   ├── ArticleByID.jsx     # Single article view + comments
+│   │   ├── AuthorArticles.jsx  # Author's article list
+│   │   ├── EditArticleForm.jsx # Edit article form
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Login.jsx           # Login page
+│   │   ├── Register.jsx        # Register page
+│   │   ├── UserProfile.jsx     # User dashboard
+│   │   └── ...
+│   ├── store/
+│   │   └── authStore.js        # Zustand auth store
+│   ├── styles/
+│   │   └── common.js           # Shared Tailwind classes
+│   └── main.jsx                # Entry point
+├── vercel.json                 # Vercel proxy config
+├── .env                        # Environment variables
+└── index.html
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the frontend root:
+
+```env
+VITE_API_URL=https://blog-app-1-li4z.onrender.com
+```
+
+---
+
+## 📦 Installation & Running Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/chethankishore/Blog-App.git
+
+# Go to frontend folder
+cd BLOG-APP-FRONTEND
+
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+```
+
+App runs on `http://localhost:5173`
+
+---
+
+## 🔐 Authentication Flow
+
+1. User logs in → backend returns JWT token
+2. Token stored and sent in `Authorization: Bearer <token>` header
+3. On page refresh → `checkAuth()` verifies token with backend
+4. Protected routes redirect to `/login` if not authenticated
+
+---
+
+## 🗺️ Routes
+
+| Path | Component | Access |
+|---|---|---|
+| `/` | Home | Public |
+| `/login` | Login | Public |
+| `/register` | Register | Public |
+| `/user-profile` | UserProfile | User |
+| `/author-profile` | AuthorProfile | Author |
+| `/admin-profile` | AdminProfile | Admin |
+| `/article/:id` | ArticleByID | User / Author |
+| `/edit-article` | EditArticleForm | Author |
+
+---
+
+## 👥 Role-Based Features
+
+### 👤 User
+- Register and login
+- Browse and read all active articles
+- Add comments to articles
+- View personal profile
+
+### ✍️ Author
+- Register and login
+- Create new articles with rich content
+- Edit their own articles
+- Delete (soft delete) or restore their own articles
+- View their article dashboard
+
+### 🔧 Admin
+- Login (no registration — created manually in DB)
+- View all registered users and authors
+- Block or unblock users and authors
+
+---
+
+## 📡 API Integration
+
+All API calls go through the backend at:
+```
+https://blog-app-1-li4z.onrender.com
+```
+
+Protected routes include the JWT token in headers:
+```js
+{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+```
+
+---
+
+## 🚀 Deployment
+
+Deployed on **Vercel** with automatic deployments on every push to `main`.
+
+---
+
+## 🏗️ Build for Production
+
+```bash
+npm run build
+```
+
+Output goes to the `dist/` folder.
+
+---
+
+## 📝 License
+
+MIT
